@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchCampsites } from './features/campsites/campsitesSlice';
+import { fetchPartners } from './features/partners/partnersSlice';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/HomePage';
@@ -9,7 +13,17 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 
+
+
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCampsites());
+    dispatch(fetchPartners());
+  }, [dispatch]);
+
   return (
     <div className="App">
       <Header />
@@ -19,9 +33,9 @@ function App() {
         <Route path='about' element={<AboutPage />} />
         <Route path='directory' element={<CampsitesDirectoryPage />} />
         <Route
-           path='directory/:campsiteId'
-           element={<CampsiteDetailPage />}
-           />
+          path='directory/:campsiteId'
+          element={<CampsiteDetailPage />}
+        />
       </Routes>
       <Footer />
 
